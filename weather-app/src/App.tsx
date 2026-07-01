@@ -28,7 +28,7 @@ function App() {
 
   return (
   <div className="min-h-screen bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-700 flex items-center justify-center p-6">
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-lg">
       <h1 className="text-6xl font-black tracking-tight text-white text-center mb-8">
   Weather App
 </h1>

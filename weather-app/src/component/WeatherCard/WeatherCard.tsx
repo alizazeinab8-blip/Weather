@@ -20,6 +20,7 @@ const WeatherCard = ({ weather }: WeatherCardProps) => {
         border-white/30
         shadow-2xl
         p-6
+        sm:p-8
         text-white
         transition-all
         duration-300
