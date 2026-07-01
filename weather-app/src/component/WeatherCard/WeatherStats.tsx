@@ -1,4 +1,6 @@
 import type { WeatherData } from "../../assets/types/weather";
+import { formatTemperature } from "../../assets/utils/formatTemperature";
+
 
 interface WeatherStatsProps {
   weather: WeatherData;
@@ -9,7 +11,12 @@ const WeatherStats = ({ weather }: WeatherStatsProps) => {
     <div className="grid grid-cols-2 gap-4 mt-8 text-gray-700">
       <div>
         <p className="font-semibold">Feels Like</p>
-        <p>{Math.round(weather.main.feels_like)}°C</p>
+        <p>{formatTemperature(weather.main.feels_like)}°C</p>
+
+        <p>
+            {formatTemperature(weather.main.temp_min)}° /
+            {formatTemperature(weather.main.temp_max)}°
+        </p>
       </div>
 
       <div>

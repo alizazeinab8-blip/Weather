@@ -1,13 +1,15 @@
 import type { WeatherData } from "../../assets/types/weather";
+import { getWeatherIcon } from "../../assets/utils/getWeatherIcon";
+
 
 interface WeatherHeaderProps {
   weather: WeatherData;
 }
 
 const WeatherHeader = ({ weather }: WeatherHeaderProps) => {
-  const iconUrl = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
-
+const iconUrl = getWeatherIcon(weather.weather[0].icon);
   return (
+    
     <div className="flex items-center justify-between">
       <div>
         <h2 className="text-3xl font-bold">{weather.name}</h2>
