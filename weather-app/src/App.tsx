@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useWeather } from "./assets/hooks/useWeather";
 import SearchBar from "./component/SearchBar";
 import WeatherCard from "./component/WeatherCard";
+import Loading from "./component/Loading";
+import Error from "./component/Error";
 
 function App() {
   const { weather, loading, error, fetchWeather } = useWeather();
@@ -26,12 +28,13 @@ function App() {
 
     <SearchBar onSearch={fetchWeather} />
 
-    {loading && <p>Loading...</p>}
+    {loading && <Loading />}
 
-    {error && <p>{error}</p>}
+{error && <Error message={error} />}
 
-    {weather && <WeatherCard weather={weather} />}
+{weather && <WeatherCard weather={weather} />}
   </div>
 );
+
 }
 export default App;
