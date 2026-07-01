@@ -9,8 +9,8 @@ function App() {
   const { weather, loading, error, fetchWeather } = useWeather();
 
   useEffect(() => {
-    fetchWeather("Tehran");
-  }, []);
+  fetchWeather("Tehran");
+}, [fetchWeather]);
 
   if (loading) {
     return <h1>Loading...</h1>;
