@@ -1,6 +1,11 @@
 import type { WeatherData } from "../../assets/types/weather";
 import { formatTemperature } from "../../assets/utils/formatTemperature";
-
+import {
+  Droplets,
+  Wind,
+  Thermometer,
+  ArrowUpDown,
+} from "lucide-react";
 
 interface WeatherStatsProps {
   weather: WeatherData;
@@ -8,35 +13,66 @@ interface WeatherStatsProps {
 
 const WeatherStats = ({ weather }: WeatherStatsProps) => {
   return (
-    <div className="grid grid-cols-2 gap-4 mt-8 text-gray-700">
-      <div>
-        <p className="font-semibold">Feels Like</p>
-        <p>{formatTemperature(weather.main.feels_like)}°C</p>
+    <div className="grid grid-cols-2 gap-5 mt-8">
 
-        <p>
+      <div className="flex items-center gap-3 rounded-xl bg-white/10 p-3">
+        <Thermometer size={24} />
+
+        <div>
+          <p className="text-sm text-white/70">
+            Feels Like
+          </p>
+
+          <p className="font-semibold">
+            {formatTemperature(weather.main.feels_like)}°
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 rounded-xl bg-white/10 p-3">
+        <Droplets size={24} />
+
+        <div>
+          <p className="text-sm text-white/70">
+            Humidity
+          </p>
+
+          <p className="font-semibold">
+            {weather.main.humidity}%
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 rounded-xl bg-white/10 p-3">
+        <Wind size={24} />
+
+        <div>
+          <p className="text-sm text-white/70">
+            Wind
+          </p>
+
+          <p className="font-semibold">
+            {weather.wind.speed} m/s
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-3 rounded-xl bg-white/10 p-3">
+        <ArrowUpDown size={24} />
+
+        <div>
+          <p className="text-sm text-white/70">
+            Min / Max
+          </p>
+
+          <p className="font-semibold">
             {formatTemperature(weather.main.temp_min)}° /
+            {" "}
             {formatTemperature(weather.main.temp_max)}°
-        </p>
+          </p>
+        </div>
       </div>
 
-      <div>
-        <p className="font-semibold">Humidity</p>
-        <p>{weather.main.humidity}%</p>
-      </div>
-
-      <div>
-        <p className="font-semibold">Wind</p>
-        <p>{weather.wind.speed} m/s</p>
-      </div>
-
-      <div>
-        <p className="font-semibold">Min / Max</p>
-        <p>
-          {Math.round(weather.main.temp_min)}° /
-          {" "}
-          {Math.round(weather.main.temp_max)}°
-        </p>
-      </div>
     </div>
   );
 };

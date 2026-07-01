@@ -27,12 +27,33 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
         placeholder="Enter city..."
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        className="border rounded-lg px-4 py-2 w-72"
+        className="
+            w-full
+            rounded-xl
+            border-none
+            bg-white/20
+            backdrop-blur
+            px-5
+            py-3
+            text-white
+            placeholder:text-white/60
+            outline-none
+            focus:ring-2
+            focus:ring-white
+            "
       />
 
       <button
         type="submit"
-        className="bg-blue-600 text-white px-5 rounded-lg hover:bg-blue-700 transition"
+      className="
+rounded-xl
+bg-white
+px-5
+text-blue-700
+font-semibold
+hover:scale-105
+transition
+"
       >
         Search
       </button>
