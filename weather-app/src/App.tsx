@@ -1,0 +1,37 @@
+import { useEffect } from "react";
+import { useWeather } from "./assets/hooks/useWeather";
+import SearchBar from "./component/SearchBar";
+import WeatherCard from "./component/WeatherCard";
+
+function App() {
+  const { weather, loading, error, fetchWeather } = useWeather();
+
+  useEffect(() => {
+    fetchWeather("Tehran");
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (error) {
+    return <h1>{error}</h1>;
+  }
+
+ return (
+  <div className="min-h-screen flex flex-col items-center p-10">
+    <h1 className="text-4xl font-bold mb-8">
+      Weather App
+    </h1>
+
+    <SearchBar onSearch={fetchWeather} />
+
+    {loading && <p>Loading...</p>}
+
+    {error && <p>{error}</p>}
+
+    {weather && <WeatherCard weather={weather} />}
+  </div>
+);
+}
+export default App;
