@@ -9,6 +9,7 @@ import { useForecast } from "./assets/hooks/useForecast";
 import Forecast from "../src/component/Forecast/Forecast";
 import { saveCity, getSavedCity } from "./assets/utils/localStorage";
 import { useFavorites } from "./assets/hooks/useFavorites";
+import Favorites from "../src/component/Favorites/Favorites";
 
 function App() {
   
@@ -86,6 +87,10 @@ const handleCurrentLocation = () => {
 </h1>
 
       <SearchBar onSearch={handleSearch} />
+      <Favorites
+  cities={favorites}
+  onSelect={handleSearch}
+/>
 
     <button
   onClick={handleCurrentLocation}
@@ -107,8 +112,12 @@ const handleCurrentLocation = () => {
 
       {error && <Error message={error} />}
 
-      {weather && <WeatherCard weather={weather} />}
-      {forecast && <Forecast forecast={forecast} />}
+{weather && (
+  <WeatherCard
+    weather={weather}
+    onFavorite={() => addFavorite(weather.name)}
+  />
+)}      {forecast && <Forecast forecast={forecast} />}
     </div>
   </div>
 );

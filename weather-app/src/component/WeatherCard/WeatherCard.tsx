@@ -6,9 +6,12 @@ import WeatherStats from "./WeatherStats";
 
 interface WeatherCardProps {
   weather: WeatherData;
+  onFavorite: () => void;
 }
-
-const WeatherCard = ({ weather }: WeatherCardProps) => {
+const WeatherCard = ({
+  weather,
+  onFavorite,
+}: WeatherCardProps) => {
   return (
     <div
       className="
@@ -29,8 +32,10 @@ const WeatherCard = ({ weather }: WeatherCardProps) => {
         animate-fadeIn
       "
     >
-      <WeatherHeader weather={weather} />
-      <WeatherTemperature weather={weather} />
+<WeatherHeader
+  weather={weather}
+  onFavorite={onFavorite}
+/>      <WeatherTemperature weather={weather} />
       <WeatherStats weather={weather} />
     </div>
   );
