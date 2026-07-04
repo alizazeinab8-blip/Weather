@@ -20,3 +20,22 @@ export const getForecast = async (
 
   return response.data;
 };
+
+export const getForecastByCoords = async (
+  lat: number,
+  lon: number
+): Promise<ForecastData> => {
+  const response = await axios.get<ForecastData>(
+    `${BASE_URL}/forecast`,
+    {
+      params: {
+        lat,
+        lon,
+        appid: API_KEY,
+        units: "metric",
+      },
+    }
+  );
+
+  return response.data;
+};

@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { getForecast } from "../api/forecast";
 import type { ForecastData } from "../types/forecast";
+import { getForecastByCoords } from "../api/forecast";
 
 export const useForecast = () => {
   const [forecast, setForecast] = useState<ForecastData | null>(null);
@@ -22,10 +23,29 @@ export const useForecast = () => {
     }
   }, []);
 
+  const fetchForecastByCoords = useCallback(
+  async (lat: number, lon: number) => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const data = await getForecastByCoords(lat, lon);
+
+      setForecast(data);
+    } catch {
+      setError("Unable to get forecast.");
+    } finally {
+      setLoading(false);
+    }
+  },
+  []
+);
+
   return {
     forecast,
     loading,
     error,
     fetchForecast,
+    fetchForecastByCoords,
   };
 };

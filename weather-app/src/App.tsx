@@ -10,13 +10,20 @@ import Forecast from "../src/component/Forecast/Forecast";
 
 function App() {
   
-  const { weather, loading, error, fetchWeather } = useWeather();
+  const {
+  weather,
+  loading,
+  error,
+  fetchWeather,
+  fetchWeatherByCoords,
+} = useWeather();
 
   const {
   forecast,
   loading: forecastLoading,
   error: forecastError,
   fetchForecast,
+  fetchForecastByCoords,
 } = useForecast();
 
 const handleSearch = async (city: string) => {
@@ -40,6 +47,26 @@ const handleSearch = async (city: string) => {
 );
 <div className={`min-h-screen ${background} flex items-center justify-center p-6`}></div>
 
+const handleCurrentLocation = () => {
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const { latitude, longitude } = position.coords;
+
+      await fetchWeatherByCoords(latitude, longitude);
+
+      await fetchForecastByCoords(latitude, longitude);
+    },
+    () => {
+      alert("Location access denied.");
+    }
+  );
+};
+
   return (
   <div className="min-h-screen bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-700 flex items-center justify-center p-6">
     <div className="w-full max-w-lg">
@@ -49,6 +76,22 @@ const handleSearch = async (city: string) => {
 
       <SearchBar onSearch={handleSearch} />
 
+    <button
+  onClick={handleCurrentLocation}
+  className="
+    mt-4
+    w-full
+    rounded-xl
+    bg-white/20
+    backdrop-blur
+    p-3
+    text-white
+    hover:bg-white/30
+    transition-all
+  "
+>
+    📍 Use My Location
+</button>
       {loading && <Loading />}
 
       {error && <Error message={error} />}

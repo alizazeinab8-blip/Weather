@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { getWeather } from "../api/weatherApi";
 import type { WeatherData } from "../types/weather";
+import { getWeatherByCoords } from "../api/weatherApi";
 
 export const useWeather = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
@@ -23,10 +24,29 @@ export const useWeather = () => {
   }
 }, []);
 
+const fetchWeatherByCoords = useCallback(
+  async (lat: number, lon: number) => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const data = await getWeatherByCoords(lat, lon);
+
+      setWeather(data);
+    } catch {
+      setError("Unable to get your location weather.");
+    } finally {
+      setLoading(false);
+    }
+  },
+  []
+);
+
   return {
     weather,
     loading,
     error,
     fetchWeather,
+    fetchWeatherByCoords,
   };
 };
