@@ -8,6 +8,7 @@ import { getBackground } from "./assets/utils/getBackground";
 import { useForecast } from "./assets/hooks/useForecast";
 import Forecast from "../src/component/Forecast/Forecast";
 import { saveCity, getSavedCity } from "./assets/utils/localStorage";
+import { useFavorites } from "./assets/hooks/useFavorites";
 
 function App() {
   
@@ -26,6 +27,11 @@ function App() {
   fetchForecast,
   fetchForecastByCoords,
 } = useForecast();
+
+const {
+  favorites,
+  addFavorite,
+} = useFavorites();
 
 const handleSearch = async (city: string) => {
   await fetchWeather(city);
