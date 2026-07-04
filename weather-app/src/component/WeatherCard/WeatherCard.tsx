@@ -3,6 +3,8 @@ import WeatherHeader from "./WeatherHeader";
 import WeatherTemperature from "./WeatherTemperature";
 import WeatherStats from "./WeatherStats";
 
+import SunTimes from "./SunTimes";
+
 
 interface WeatherCardProps {
   weather: WeatherData;
@@ -36,6 +38,7 @@ const WeatherCard = ({
   weather={weather}
   onFavorite={onFavorite}
 />      <WeatherTemperature weather={weather} />
+<SunTimes weather={weather} />
       <WeatherStats weather={weather} />
     </div>
   );

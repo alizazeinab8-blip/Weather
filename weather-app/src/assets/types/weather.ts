@@ -3,6 +3,8 @@ export interface WeatherData {
 
   sys: {
     country: string;
+  sunrise: number;
+  sunset: number;
   };
 
   main: {
