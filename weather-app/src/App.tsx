@@ -7,6 +7,7 @@ import Error from "./component/Error";
 import { getBackground } from "./assets/utils/getBackground";
 import { useForecast } from "./assets/hooks/useForecast";
 import Forecast from "../src/component/Forecast/Forecast";
+import { saveCity, getSavedCity } from "./assets/utils/localStorage";
 
 function App() {
   
@@ -29,10 +30,14 @@ function App() {
 const handleSearch = async (city: string) => {
   await fetchWeather(city);
   await fetchForecast(city);
+
+  saveCity(city);
 };
 
   useEffect(() => {
-  handleSearch("Tehran");
+  const city = getSavedCity() || "Tehran";
+
+  handleSearch(city);
 }, []);
 
   if (loading) {
