@@ -5,14 +5,28 @@ import WeatherCard from "./component/WeatherCard/WeatherCard";
 import Loading from "./component/Loading";
 import Error from "./component/Error";
 import { getBackground } from "./assets/utils/getBackground";
+import { useForecast } from "./assets/hooks/useForecast";
+import Forecast from "../src/component/Forecast/Forecast";
 
 function App() {
   
   const { weather, loading, error, fetchWeather } = useWeather();
 
+  const {
+  forecast,
+  loading: forecastLoading,
+  error: forecastError,
+  fetchForecast,
+} = useForecast();
+
+const handleSearch = async (city: string) => {
+  await fetchWeather(city);
+  await fetchForecast(city);
+};
+
   useEffect(() => {
-    fetchWeather("Tehran");
-  }, [fetchWeather]);
+  handleSearch("Tehran");
+}, []);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -33,15 +47,17 @@ function App() {
   Weather App
 </h1>
 
-      <SearchBar onSearch={fetchWeather} />
+      <SearchBar onSearch={handleSearch} />
 
       {loading && <Loading />}
 
       {error && <Error message={error} />}
 
       {weather && <WeatherCard weather={weather} />}
+      {forecast && <Forecast forecast={forecast} />}
     </div>
   </div>
 );
 }
+
 export default App;
