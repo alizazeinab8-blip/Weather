@@ -10,8 +10,14 @@ import Forecast from "../src/component/Forecast/Forecast";
 import { saveCity, getSavedCity } from "./assets/utils/localStorage";
 import { useFavorites } from "./assets/hooks/useFavorites";
 import Favorites from "../src/component/Favorites/Favorites";
+import { useAirQuality } from "../src/assets/hooks/useAirQuality";
 
 function App() {
+
+  const {
+  airQuality,
+  fetchAirQuality,
+} = useAirQuality();
   
   const {
   weather,
@@ -35,8 +41,16 @@ const {
 } = useFavorites();
 
 const handleSearch = async (city: string) => {
-  await fetchWeather(city);
+  const data = await fetchWeather(city);
+
+  if (!data) return;
+
   await fetchForecast(city);
+
+  await fetchAirQuality(
+    data.coord.lat,
+    data.coord.lon
+  );
 
   saveCity(city);
 };
