@@ -11,8 +11,10 @@ import { saveCity, getSavedCity } from "./assets/utils/localStorage";
 import { useFavorites } from "./assets/hooks/useFavorites";
 import Favorites from "../src/component/Favorites/Favorites";
 import { useAirQuality } from "../src/assets/hooks/useAirQuality";
+import { useTheme } from "./assets/hooks/useTheme";
 
 function App() {
+  
 
   const {
   airQuality,
@@ -39,6 +41,8 @@ const {
   favorites,
   addFavorite,
 } = useFavorites();
+
+const { theme, toggleTheme } = useTheme();
 
 const handleSearch = async (city: string) => {
   const data = await fetchWeather(city);
@@ -71,7 +75,13 @@ const handleSearch = async (city: string) => {
   const background = getBackground(
   weather?.weather[0].main ?? ""
 );
-<div className={`min-h-screen ${background} flex items-center justify-center p-6`}></div>
+<div
+  className={`min-h-screen transition-colors duration-500 ${
+    theme === "dark"
+      ? "bg-slate-900 text-white"
+      : "bg-sky-100 text-slate-900"
+  }`}
+></div>
 
 const handleCurrentLocation = () => {
   if (!navigator.geolocation) {
@@ -105,6 +115,13 @@ const handleCurrentLocation = () => {
   cities={favorites}
   onSelect={handleSearch}
 />
+
+<button
+  onClick={toggleTheme}
+  className="rounded-lg bg-white/20 px-4 py-2 backdrop-blur hover:bg-white/30 transition"
+>
+  {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+</button>
 
     <button
   onClick={handleCurrentLocation}
