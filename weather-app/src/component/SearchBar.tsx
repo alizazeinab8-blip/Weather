@@ -18,7 +18,10 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
   };
 
   return (
-    <form className="flex flex-col sm:flex-row gap-3">
+    <form
+  onSubmit={handleSubmit}
+  className="flex flex-col sm:flex-row gap-3"
+>
       <input
         type="text"
         placeholder="Enter city..."
