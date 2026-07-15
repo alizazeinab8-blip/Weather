@@ -12,8 +12,17 @@ export const useTheme = () => {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
+  setTheme((prev) => {
+    const newTheme = prev === "dark" ? "light" : "dark";
+
+    document.documentElement.classList.toggle(
+      "dark",
+      newTheme === "dark"
+    );
+
+    return newTheme;
+  });
+};
 
   return {
     theme,
