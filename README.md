@@ -152,9 +152,7 @@ Air Pollution API
 GitHub:
 https://github.com/alizaeinab8-blip
 
-LinkedIn:
 
-(Add your LinkedIn profile)
 
 ---
 
